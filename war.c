@@ -264,5 +264,6 @@ int main() {
     
     free(Terra);
     free(Atacar);
+    free(Missão);
     return 0;
 }
