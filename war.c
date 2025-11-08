@@ -66,6 +66,27 @@ int AtacarTerritorio()
     return 3;
    }
 }
+
+void VerificarMissões(){
+
+        struct Territorio Terrenos;
+        int TerritoriosVerdes;
+        printf("\nVerificando missões...\n");
+    for (int i = 0; i < Territorio_Max;i++){
+
+        if(Terra[i].Cor == "Verde"){
+            TerritoriosVerdes++;
+        }
+        
+      
+    }
+    if (TerritoriosVerdes == 0 ){
+        printf("\nMissão : Destruir todos territórios verdes - Concluida\n");
+    }
+    else{
+        printf("\nMissão : Destruir todos territórios verdes - Incompleta\n");
+    }
+}
 // Declarações antecipadas de todas as funções que serão usadas no programa, organizadas por categoria.
 // Funções de setup e gerenciamento de memória:
 // Funções de interface com o usuário:
@@ -77,8 +98,8 @@ int main() {
 
     struct Territorio *Terra;
 
-    Terra = (struct Territorio*) calloc(Territorio_Max,sizeof(struct Territorio));
     int (*Atacar)() = AtacarTerritorio;
+    Terra = (struct Territorio*) calloc(Territorio_Max,sizeof(struct Territorio));
     
     if(Terra == NULL)
     {
@@ -100,6 +121,7 @@ int main() {
     printf("1 - Cadastrar territórios\n");
     printf("2 - Exibir territórios\n");
     printf("3 - Atacar territórios\n");
+    printf("4 - Verificar missões\n");
     printf("0 - Sair\n");
 
     scanf("%d",&Opcao);
@@ -148,7 +170,7 @@ int main() {
         for (int i = 0; i < Territorio_Atual; i++)
         {
              printf("%d -------------------------------------\n", i+1);
-             printf("Dono %d :\n", Terra[i].Dono);
+             printf("Dono %s :\n", Terra[i].Dono);
              printf("Nome : %s",Terra[i].Nome);
              printf("Cor : %s",Terra[i].Cor);
              printf("Quantidade de tropas : %d\n",Terra[i].Tropas);
@@ -216,6 +238,10 @@ int main() {
         printf("\nTerritórios insuficientes!\n");
       } 
       break;
+      case 4:
+      VerificarMissões();
+      break;
+
     case 0:
         break;
 
