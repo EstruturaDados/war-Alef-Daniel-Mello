@@ -14,15 +14,115 @@
 //
 // ============================================================================
 
-// Inclusão das bibliotecas padrão necessárias para entrada/saída, alocação de memória, manipulação de strings e tempo.
+// Bibliotecas
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 // --- Constantes Globais ---
 // Definem valores fixos para o número de territórios, missões e tamanho máximo de strings, facilitando a manutenção.
 
-// --- Estrutura de Dados ---
-// Define a estrutura para um território, contendo seu nome, a cor do exército que o domina e o número de tropas.
+#define Territorio_Max 5
+int Territorio_Atual = 0;
+#define Nome_Max 50
+#define Cor_Max 20
+#define Tropa_Max 20
+int Opcao;
+// --- Estrutura de Dados --- 
+struct Territorio{
+
+   char Nome[Nome_Max];
+   char Cor[Cor_Max];
+   int Tropas;
+
+};
+    struct Territorio Terra[Territorio_Max];
 
 // --- Protótipos das Funções ---
+void LimparBuffer(){
+    int c;
+    while ((c = getchar()) !='\n' && c != EOF);
+}
+
+void Menu(){
+    Opcao = 0;
+    printf("========================================\n");
+    printf("         Desafio War - Novato\n");
+    printf("========================================\n");
+    printf("---- Quantidade de Territorios : %d ----\n", Territorio_Atual);
+    printf("========================================\n");
+
+    printf("Selecione uma opção :\n");
+    printf("1 - Cadastrar territórios\n");
+    printf("2 - Exibir territórios\n");
+    printf("0 - Sair\n");
+
+    scanf("%d",&Opcao);
+    LimparBuffer();
+    switch (Opcao)
+    {
+    case 1:
+        Cadastrar();
+    case 2:
+        Exibir();
+    case 0:
+        printf("\nPrograma encerrado\n");
+        break;
+    }
+}
+
+void Cadastrar()
+{
+    
+    if(Territorio_Atual < Territorio_Max)
+    {
+    printf("\n\n=======================================\n");
+    printf("Cadastro de território\n");
+    printf("=======================================\n");
+    // Cadastrar Nome
+    printf("\nDigite o nome do território %d :\n",Territorio_Atual+1);
+    fgets(Terra[Territorio_Atual].Nome,Nome_Max,stdin);  
+    // Cadastrar Cor
+    printf("\nDigite a cor do território %d :\n",Territorio_Atual+1);
+    fgets(Terra[Territorio_Atual].Cor,Cor_Max,stdin);  
+    // Cadastrar Tropas
+    printf("\nDigite a quantidade de tropas do território %d :\n",Territorio_Atual+1);
+    scanf("%d",&Terra[Territorio_Atual].Tropas);  
+    LimparBuffer();
+    Territorio_Atual++;
+    Menu();
+    }
+    else{
+        printf("\nNúmero máximo de territórios atingidos, retornando ao Menu\n");
+        Menu();
+    }
+}
+
+void Exibir(){
+    
+    
+    printf("\n\n=======================================\n");
+    printf("Exibição de territórios\n");
+    printf("=======================================\n");
+    if(Territorio_Atual == 0){
+        printf("Não há territórios cadastrados");
+        Menu();
+    }
+    else{
+        for (int i = 0; i < Territorio_Atual; i++)
+        {
+             printf("%d -------------------------------------\n", i+1);
+             printf("Território %d :\n", i+1);
+             printf("Nome : %s",Terra[i].Nome);
+             printf("Cor : %s",Terra[i].Cor);
+             printf("Quantidade de tropas : %d\n",Terra[i].Tropas);
+             printf("-------------------------------------\n\n");
+
+
+        }
+        Menu();
+    }
+}
 // Declarações antecipadas de todas as funções que serão usadas no programa, organizadas por categoria.
 // Funções de setup e gerenciamento de memória:
 // Funções de interface com o usuário:
@@ -32,6 +132,10 @@
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
 int main() {
+    Menu();
+
+    
+
     // 1. Configuração Inicial (Setup):
     // - Define o locale para português.
     // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
