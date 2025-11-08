@@ -14,6 +14,7 @@
 //
 // ============================================================================
 
+
 // Bibliotecas
 #include <string.h>
 #include <stdio.h>
@@ -44,33 +45,6 @@ void LimparBuffer(){
     while ((c = getchar()) !='\n' && c != EOF);
 }
 
-void Menu(){
-    Opcao = 0;
-    printf("========================================\n");
-    printf("         Desafio War - Novato\n");
-    printf("========================================\n");
-    printf("---- Quantidade de Territorios : %d ----\n", Territorio_Atual);
-    printf("========================================\n");
-
-    printf("Selecione uma opção :\n");
-    printf("1 - Cadastrar territórios\n");
-    printf("2 - Exibir territórios\n");
-    printf("0 - Sair\n");
-
-    scanf("%d",&Opcao);
-    LimparBuffer();
-    switch (Opcao)
-    {
-    case 1:
-        Cadastrar();
-    case 2:
-        Exibir();
-    case 0:
-        printf("\nPrograma encerrado\n");
-        break;
-    }
-}
-
 void Cadastrar()
 {
     
@@ -90,6 +64,18 @@ void Cadastrar()
     scanf("%d",&Terra[Territorio_Atual].Tropas);  
     LimparBuffer();
     Territorio_Atual++;
+    printf("\n\nContinuar cadastrando?\n");
+    printf("1 - Sim  /  2 - Não\n");
+    int resposta = 0;
+    scanf("%d",&resposta);
+    LimparBuffer();
+    switch (resposta)
+    {
+    case 1:
+        Cadastrar();
+    default:
+        Menu();
+    }
     Menu();
     }
     else{
@@ -121,6 +107,33 @@ void Exibir(){
 
         }
         Menu();
+    }
+}
+
+void Menu(){
+    Opcao = 0;
+    printf("========================================\n");
+    printf("         Desafio War - Novato\n");
+    printf("========================================\n");
+    printf("---- Quantidade de Territorios : %d ----\n", Territorio_Atual);
+    printf("========================================\n");
+
+    printf("Selecione uma opção :\n");
+    printf("1 - Cadastrar territórios\n");
+    printf("2 - Exibir territórios\n");
+    printf("0 - Sair\n");
+
+    scanf("%d",&Opcao);
+    LimparBuffer();
+    switch (Opcao)
+    {
+    case 1:
+        Cadastrar();
+    case 2:
+        Exibir();
+    case 0:
+        printf("\nPrograma encerrado\n");
+        break;
     }
 }
 // Declarações antecipadas de todas as funções que serão usadas no programa, organizadas por categoria.
